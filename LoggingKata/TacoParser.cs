@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using log4net;
+using System.IO;
+
 
 namespace LoggingKata
 {
@@ -10,8 +13,9 @@ namespace LoggingKata
     public class TacoParser
     {
         public TacoParser()
-        {
+        {   
 
+            
         }
 
         private static readonly ILog Logger =
@@ -20,6 +24,7 @@ namespace LoggingKata
         public ITrackable Parse(string line)
         {
             //DO not fail if one record parsing fails, return null
+            Logger.Error("Parsing failed. Should have continued but returned null.");
             return null; //TODO Implement
         }
     }

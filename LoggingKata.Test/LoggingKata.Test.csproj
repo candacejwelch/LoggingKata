@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoggingKata\LoggingKata.csproj">
+      <Project>{FE9E9D8A-964C-4853-A37A-A4F25A3785B2}</Project>
+      <Name>LoggingKata</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,6 +12,8 @@ namespace LoggingKata
     /// </summary>
     public class TacoParser
     {
+
+        //Constructor, use this to send information to the instance
         public TacoParser()
         {   
 
@@ -24,6 +26,14 @@ namespace LoggingKata
         public ITrackable Parse(string line)
         {
             //DO not fail if one record parsing fails, return null
+            
+            var record = new Record();
+            var values = line.Split(',');
+            var point = new Point(Decimal.Parse(values[0]), Decimal.Parse(values[1]));
+            record.Location = point;
+
+            record.Name = values[2].Split('.')[0].Replace("/","").Replace("\"","");
+            
             Logger.Error("Parsing failed. Should have continued but returned null.");
             return null; //TODO Implement
         }

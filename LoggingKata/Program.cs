@@ -21,19 +21,30 @@ namespace LoggingKata
             Logger.Debug("Created csv Path variable");
 
             var lines = File.ReadAllLines(path);
+            if (lines.Length == 0)
+            {
+                Logger.Warn("cvs file is missing or empty.");
+            }
+            else if (lines.Length == 1)
+            {
+                Logger.Warn("Can't compare, there is only one element");
+            }
             
+
+            
+            var parser = new TacoParser();
+            //var locations = lines.Select(line => parser.Parse(line));
+
+            var tmpRecordsList = new List<ITrackable>();
+
             foreach (var line in lines)
             {
-                Console.WriteLine(line);
+                tmpRecordsList.Add(parser.Parse(line));
             }
-
-            Console.WriteLine(lines);
-            var parser = new TacoParser();
-            var locations = lines.Select(line => parser.Parse(line));
 
             //TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
             //HINT:  You'll need two nested forloops
-
+            
 
         }
     }

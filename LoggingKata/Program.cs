@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using System.IO;
+using Geolocation;
 
 namespace LoggingKata
 {
@@ -23,23 +24,21 @@ namespace LoggingKata
             var lines = File.ReadAllLines(path);
             if (lines.Length == 0)
             {
-                Logger.Warn("cvs file is missing or empty.");
+                Logger.Error("cvs file is missing or empty.");
             }
             else if (lines.Length == 1)
             {
                 Logger.Warn("Can't compare, there is only one element");
             }
             
-
-            
             var parser = new TacoParser();
-            var locations = lines.Select(line => parser.Parse(line));
-
-
+            Logger.Debug("Initialized our Parser");
+            var locations = lines.Select(line => parser.ParseTacos(line));
+            Console.WriteLine(locations);
             //TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
             //HINT:  You'll need two nested forloops
 
-
+            //GeoCalculator
         }
     }
 }

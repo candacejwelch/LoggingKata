@@ -34,7 +34,7 @@ namespace LoggingKata
             var parser = new TacoParser();
             Logger.Debug("Initialized our Parser");
             var locations = lines.Select(line => parser.ParseTacos(line));
-            Console.WriteLine(locations);
+            
             //TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
             //HINT:  You'll need two nested forloops
 

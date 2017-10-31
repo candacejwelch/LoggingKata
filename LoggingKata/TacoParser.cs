@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using log4net;
-using System.IO;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 
 namespace LoggingKata
@@ -45,7 +42,6 @@ namespace LoggingKata
                 Console.WriteLine(e);
                 return null;
             }
-            
         }
     }
 }

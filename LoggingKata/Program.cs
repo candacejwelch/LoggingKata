@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using log4net;
 using System.IO;
 using Geolocation;
@@ -11,7 +8,6 @@ namespace LoggingKata
 {
     class Program
     {
-        //Why do you think we use ILog?
         private static readonly ILog Logger =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -22,13 +18,14 @@ namespace LoggingKata
             Logger.Debug("Created csv Path variable");
 
             var lines = File.ReadAllLines(path);
-            if (lines.Length == 0)
+            switch (lines.Length)
             {
-                Logger.Error("cvs file is missing or empty.");
-            }
-            else if (lines.Length == 1)
-            {
-                Logger.Warn("Can't compare, there is only one element");
+                case 0:
+                    Logger.Error("cvs file is missing or empty.");
+                    break;
+                case 1:
+                    Logger.Warn("Can't compare, there is only one element");
+                    break;
             }
             
             var parser = new TacoParser();
@@ -45,7 +42,6 @@ namespace LoggingKata
             Logger.Info("Comparing distance between locations");
             foreach (var locA in locations)
             {
-                //Logger.Debug("Checking origin location.");
                 var origin = new Coordinate
                 {
                     Latitude = locA.Location.Latitude,
@@ -54,21 +50,16 @@ namespace LoggingKata
                 
                 foreach (var locB in locations)
                 {
-                    //Logger.Debug("Checking destination location.");
                     var destination = new Coordinate
                     {
                         Latitude = locB.Location.Latitude,
                         Longitude = locB.Location.Longitude
                     };
-                    //Logger.Info("Setting distance between the two points.");
                     var nDistance = GeoCalculator.GetDistance(origin, destination);
-                    if (nDistance > distance)
-                    {
-                        //Logger.Info("If the new distance was greater than the previous, setting new values.");
-                        locationA = locA;
-                        locationB = locB;
-                        distance = nDistance;
-                    }
+                    if (!(nDistance > distance)) continue;
+                    locationA = locA;
+                    locationB = locB;
+                    distance = nDistance;
                 }
             }
             if (locationA == null || locationB == null)
